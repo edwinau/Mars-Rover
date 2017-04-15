@@ -8,12 +8,12 @@ class Mars
     end
 
 
-    def read_instruction
-
+    def read_instruction(instructions)
+      instructions.scan /\w/
+      
     end
 
     def move
-
     end
 
     def turn
@@ -21,4 +21,5 @@ class Mars
 
 end
 
-mars = Mars.new (1,2,N)
+mars = Mars.new(1,2,"N")
+mars.read_instruction("LMLMLMLMM")
