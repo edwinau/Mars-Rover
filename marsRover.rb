@@ -28,25 +28,26 @@ class Mars
     @z = []
   end
 
-
-  def read_instruction(instructions)
-    @z = instructions.scan /\w/
-    @z.each do |y|
-      if y == "L"
-        turn("L")
-        puts @direction
-        return @z
+  def move(x)
+    case x
+    when "M"
+      case @direction
+      when "N"
+        @y += 1
+      when "E"
+        @x += 1
+      when "S"
+        @y -= 1
+      else "W"
+        @x -=1
       end
+      return  @x , @y, @direction
     end
-
-  end
-
-  def move(letter)
   end
 
   def turn(x)
     case x
-    when "L"
+    when "R"
       case @direction
       when "N"
         return @direction = "E"
@@ -57,25 +58,34 @@ class Mars
       else "W"
         return @direction = "N"
       end
-    when "R"
-    end
-  end
-end
-
-  
-    end
-    case x = "R"
+    when "L"
+      case @direction
       when "N"
-        @direction = "W"
+        return @direction = "W"
       when "W"
-        @direction = "S"
+        return @direction = "S"
       when "S"
-        @direction = "E"
+        return @direction = "E"
       else "E"
-        @direction = "N"
+        return @direction = "N"
       end
     end
   end
 
-puts mars = Mars.new(1,2,"N")
+  def read_instruction(instructions)
+    @z = instructions.scan /\w/
+    @z.each do |y|
+      if y == "L"
+        turn("L")
+      elsif y == "R"
+        turn("R")
+      elsif y == "M"
+        move("M")
+      end
+    end
+    return  @x , @y, @direction
+  end
+
+end
+
 # puts mars.read_instruction("LMLMLMLMM")
